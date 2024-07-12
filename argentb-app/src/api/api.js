@@ -51,3 +51,35 @@ export const getUser = async () => {
     throw new Error('Failed to fetch user profile');
   }
 };
+
+
+export const changeUser = async (newUsername) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token available');
+    }
+
+    const response = await fetch(`${API_BASE_URL}/user/profile`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userName: newUsername
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch user profile');
+      
+    }
+
+    const data = await response.json();
+    console.log('newUserName response:', data); // Log ici pour vérifier les données
+    return data;
+  } catch (error) {
+    throw new Error('Failed to fetch user profile');
+  }
+};
