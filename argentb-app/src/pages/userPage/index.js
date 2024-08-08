@@ -1,81 +1,25 @@
-// import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { getUser } from '../../api/api';
-// import UserWelcome from '../../components/user-welcome';
-// import UserCount from '../../components/user-count';
-// import UserProfile from '../../components/user-profile';
-// // import MainNav from '../../components/main-nav';
-
-// function UserPage() {
-//   const [userData, setUserInfo] = useState(null);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       const token = localStorage.getItem('token');
-//       if (!token) {
-//         navigate('/login'); // Redirigez vers la page de connexion si aucun token n'est présent
-//         return;
-//       }
-
-//       try {
-//         const userData = await getUser(token);
-//         setUserInfo(userData);
-//       } catch (error) {
-//         console.error('Failed to retrieve user information:', error);
-//         navigate('/error');
-//       }
-//     };
-
-//     fetchUserData();
-//   }, [navigate]);
-
-//   return (
-//     <div className="main bg-dark">
-  
-//       {userData ? (
-//         <div className="header">
-//           <UserWelcome userData={userData} />
-//           <UserProfile userData={userData} />
-//           <UserCount userData={userData} />
-         
-          
-//         </div>
-//       ) : (
-//         <p>Loading user information...</p>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default UserPage;
-
-
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser } from '../../api/features/userAction'; // Assurez-vous que le chemin est correct
+import { fetchUserThunk } from '../../api/features/userSlice'; 
 import UserWelcome from '../../components/user-welcome';
-import UserCount from '../../components/user-count';
+import UserAccount from '../../components/user-account';
 import UserProfile from '../../components/user-profile';
+
 
 function UserPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user.userData);
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const userData = useSelector((state) => state.user.user);
+  const isAuthenticated = useSelector((state) => state.user.token !== null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login'); // Redirigez vers la page de connexion si aucun token n'est présent
-      return;
-    }
-
     if (!isAuthenticated) {
-      dispatch(fetchUser());
+      navigate('/login');
+    } else if (!userData) {
+      dispatch(fetchUserThunk());
     }
-  }, [dispatch, isAuthenticated, navigate]);
+  }, [dispatch, isAuthenticated, navigate, userData]);
 
   return (
     <div className="main bg-dark">
@@ -83,7 +27,16 @@ function UserPage() {
         <div className="header">
           <UserWelcome userData={userData} />
           <UserProfile userData={userData} />
-          <UserCount userData={userData} />
+          <h2 className="sr-only">Accounts</h2>
+          <UserAccount title="Argent Bank Checking (x8349)"
+                amount="$2,082.79"
+                description="Available Balance" />
+          <UserAccount   title="Argent Bank Savings (x6712)"
+                amount="$10,928.42"
+                description="Available Balance" />
+          <UserAccount    title="Argent Bank Credit Card (x8349)"
+                amount="$184.30"
+                description="Current Balance"/>
         </div>
       ) : (
         <p>Loading user information...</p>
@@ -93,5 +46,4 @@ function UserPage() {
 }
 
 export default UserPage;
-
 

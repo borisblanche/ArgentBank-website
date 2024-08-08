@@ -1,5 +1,3 @@
-// src/store.js
-
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './api/features/userSlice';
 
@@ -10,3 +8,6 @@ const store = configureStore({
 });
 
 export default store;
+
+
+

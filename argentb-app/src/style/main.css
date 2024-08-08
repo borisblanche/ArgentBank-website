@@ -72,12 +72,13 @@ html {
   }
   
   .hero {
-    background-image: url('C:\Users\boris\OneDrive\Bureau\work flow\ArgentBank-website\ArgentBank-app\argentbank-app\public\img\bank-tree.jpeg');
+    background-image: url('C:\Users\boris\OneDrive\Bureau\work flow\ArgentBank-website\argentb-app\public\img\bank-tree.webp');
     background-position: 0 -50px;
     background-size: cover;
     background-repeat: no-repeat;
     height: 300px;
     position: relative;
+    /* display: flex; */
   }
   
   .hero-content {
@@ -221,6 +222,8 @@ html {
     align-items: center;
     border: 1px solid black;
     background-color: #fff;
+    color: #222;
+    /* a verifier color bgc-color */
     width: 80%;
     margin: 0 auto;
     flex-direction: column;

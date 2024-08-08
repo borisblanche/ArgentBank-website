@@ -1,9 +1,8 @@
-// api.js
-
 const API_BASE_URL = 'http://localhost:3001/api/v1';
 
 export const loginUser = async (userData) => {
   try {
+    console.log('Sending user data:', userData);
     const response = await fetch(`${API_BASE_URL}/user/login`, {
       method: 'POST',
       headers: {
@@ -13,20 +12,20 @@ export const loginUser = async (userData) => {
     });
 
     if (!response.ok) {
+       const errorText = await response.text();
+      console.error('Login failed with status:', response.status, errorText);
       throw new Error('Failed to login');
     }
 
     const data = await response.json();
-    localStorage.setItem('token', data.body.token); // Stocker le token dans le localStorage
-    return data;
+    return data; 
   } catch (error) {
     throw new Error('Failed to login');
   }
 };
 
-export const getUser = async () => {
+export const getUser = async (token) => {
   try {
-    const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('No token available');
     }
@@ -41,21 +40,17 @@ export const getUser = async () => {
 
     if (!response.ok) {
       throw new Error('Failed to fetch user profile');
-      
     }
 
     const data = await response.json();
-    console.log('getUser response:', data); // Log ici pour vérifier les données
     return data;
   } catch (error) {
     throw new Error('Failed to fetch user profile');
   }
 };
 
-
-export const changeUser = async (newUsername) => {
+export const changeUser = async (token, newUsername) => {
   try {
-    const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('No token available');
     }
@@ -73,13 +68,15 @@ export const changeUser = async (newUsername) => {
 
     if (!response.ok) {
       throw new Error('Failed to fetch user profile');
-      
     }
 
     const data = await response.json();
-    console.log('newUserName response:', data); // Log ici pour vérifier les données
+    console.log('Login successful:', data); 
     return data;
   } catch (error) {
     throw new Error('Failed to fetch user profile');
   }
 };
+
+
+

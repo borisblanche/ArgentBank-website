@@ -1,22 +1,23 @@
-
 import React, { useState } from 'react';
-import { changeUser } from '../../api/api'; // Assurez-vous que le chemin est correct
+import { useDispatch, useSelector } from 'react-redux';
+import { changeUserThunk } from '../../api/features/userSlice'; // Assurez-vous que le chemin est correct
 
 const UpdateUsername = () => {
-  const [username, setUsername] = useState('');
+  const dispatch = useDispatch();
+  const [newUsername, setNewUsername] = useState('');
   const [message, setMessage] = useState('');
+  const token = useSelector((state) => state.user.token);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await changeUser(username);
-      setMessage('Nom d\'utilisateur mis à jour avec succès');
-      console.log('Response:', response);
+      await dispatch(changeUserThunk({ token, newUsername })).unwrap();
+      setMessage('Username successfully changed');
     } catch (error) {
-      setMessage('Erreur lors de la mise à jour du nom d\'utilisateur');
-      console.error('Error:', error.message);
+      setMessage('Failed to change username');
     }
   };
+
 
   return (
     <div>
@@ -26,8 +27,8 @@ const UpdateUsername = () => {
           Nouveau nom d'utilisateur :
           <input 
             type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
+            value={newUsername} 
+            onChange={(e) => setNewUsername(e.target.value)} 
             required 
           />
         </label>
