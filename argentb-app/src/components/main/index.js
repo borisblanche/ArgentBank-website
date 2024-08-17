@@ -1,53 +1,38 @@
 import React from "react";
-// import './style/main.css';
+import FeatureItem from "../main-features-items/index.js";
+import Hero from "../main-hero/index.js";
+
 
 function Main() {
     return (
         <div>
-              <main>
-      <div className="hero">
-        <section className="hero-content">
-          <h2 className="sr-only">Promoted Content</h2>
-          <p className="subtitle">No fees.</p>
-          <p className="subtitle">No minimum deposit.</p>
-          <p className="subtitle">High interest rates.</p>
-          <p className="text">Open a savings account with Argent Bank today!</p>
-        </section>
-      </div>
+        <main>
+        <Hero />
       <section className="features">
-        <h2 className="sr-only">Features</h2>
-        <div className="feature-item">
-          <img src="./img/icon-chat.webp" alt="Chat Icon" className="feature-icon" />
-          <h3 className="feature-item-title">You are our #1 priority</h3>
-          <p>
-            Need to talk to a representative? You can get in touch through our
-            24/7 chat or through a phone call in less than 5 minutes.
-          </p>
-        </div>
-        <div className="feature-item">
-          <img
-            src="./img/icon-money.webp"
-            alt="Chat Icon"
-            className="feature-icon"
+          <h2 className="sr-only">Features</h2>
+          
+          <FeatureItem 
+            iconSrc="./img/icon-chat.webp"
+            altText="Chat Icon"
+            title="You are our #1 priority"
+            description="Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."
           />
-          <h3 className="feature-item-title">More savings means higher rates</h3>
-          <p>
-            The more you save with us, the higher your interest rate will be!
-          </p>
-        </div>
-        <div className="feature-item">
-          <img
-            src="./img/icon-security.webp"
-            alt="Chat Icon"
-            className="feature-icon"
+
+          <FeatureItem 
+            iconSrc="./img/icon-money.webp"
+            altText="Money Icon"
+            title="More savings means higher rates"
+            description="The more you save with us, the higher your interest rate will be!"
           />
-          <h3 className="feature-item-title">Security you can trust</h3>
-          <p>
-            We use top of the line encryption to make sure your data and money
-            is always safe.
-          </p>
-        </div>
-      </section>
+
+          <FeatureItem 
+            iconSrc="./img/icon-security.webp"
+            altText="Security Icon"
+            title="Security you can trust"
+            description="We use top of the line encryption to make sure your data and money is always safe."
+          />
+          
+        </section>
     </main> 
     </div>
 )

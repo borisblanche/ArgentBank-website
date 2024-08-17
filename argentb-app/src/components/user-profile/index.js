@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeUserThunk } from '../../api/features/userSlice'; // Assurez-vous que le chemin est correct
+import { changeUserThunk } from '../../api/features/userSlice'; 
 
 const UpdateUsername = () => {
   const dispatch = useDispatch();
