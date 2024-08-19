@@ -20,9 +20,9 @@ const UpdateUsername = () => {
 
 
   return (
-    <div>
+    <div className='user-name-content'>
       <h2>Mettre à jour le nom d'utilisateur</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}className='user-name-form'>
         <label>
           Nouveau nom d'utilisateur :
           <input 
